@@ -9,15 +9,20 @@ This is the simplest possible Bellina application.
 For clarity, some of the code will be hidden.  View the full source code at the repository.
 
 ```
-package main
-
-import ...
-```
-
-Our GLFW library requires this.
-```
 func init() {
 	runtime.LockOSThread()
+}
+```
+
+Our GLFW library requires the above.
+
+&nbsp;
+
+```
+func main() {
+	bl.Start( hal_g5.New(), 1280, 1024, "Bellina v0.9", initialize, tick, uninitialize )
+
+	fmt.Println("bye!")
 }
 ```
 
@@ -45,15 +50,7 @@ This function gets called at every loop for your user application to update stat
 
 > If you don't need an initialize and/or uninitialize callback functions, you may pass `nil`.
 
-```
-func main() {
-	bl.Start( hal_g5.New(), 1280, 1024, "Bellina v0.9", initialize, tick, uninitialize )
-
-	fmt.Println("bye!")
-}
-```
-
-Since Bellina does not do any rendering, the application would look blank.  So we are going to make use of a `border` plugin that draws borders and can fill a node with various colors.  The details are left for later, but for now we need to import and initialize the `go_dark_ux` library that is in `github.com/amortaza/go-dark-ux`.
+&nbsp;
 
 ```
 func initialize() {
@@ -61,18 +58,33 @@ func initialize() {
 
 	go_dark_ux.Init()
 }
+
+func uninitialize() {
+	fmt.Println("Uninitializing!")
+
+    go_dark_ux.Uninit()
+}
 ```
+
+Since Bellina does not do any rendering, the application would look blank.  So we are going to make use of a `border` plugin that draws borders and can fill a node with various colors.  The details are left for later, but for now we need to import and initialize the `go_dark_ux` library that is in `github.com/amortaza/go-dark-ux`.
 
 Bellina does not impose any interface rules on plugins and libraries.  Each plugin will have its own needs for setup and teardown, so make sure you follow each plugin's.
 
 > Bellina convention is that a plugin, if it needs one, to expose `Init()` and `Uninit()` methods with whatever parameters are relevant.
 
+&nbsp;
 
 ```
-func uninitialize() {
-	fmt.Println("Uninitializing!")
+func tick() {
 
-    go_dark_ux.Uninit()
+	bl.Root()
+	{
+		bl.Dim( bl.Window_Width, bl.Window_Height)
+
+		border.Fill(50, 0, 0)
+		border.Wire()
+	}
+	bl.End()
 }
 ```
 
@@ -90,19 +102,7 @@ We use the border plugin to Fill the node with color and to draw a border around
 
 Do not concern yourself with how plugins or how border works at this time.
 
-```
-func tick() {
-
-	bl.Root()
-	{
-		bl.Dim( bl.Window_Width, bl.Window_Height)
-
-		border.Fill(50, 0, 0)
-		border.Wire()
-	}
-	bl.End()
-}
-```
+&nbsp;
 
 Lets add a child node.
 
