@@ -28,6 +28,39 @@ func tick() {
 
 		border.Fill(50, 0, 0)
 		border.Wire()
+
+		bl.Div()
+		{
+			bl.Id("child")
+			bl.Pos(20, 40)
+			bl.Dim(90, 60)
+
+			border.Fill(0, 50, 0)
+			border.Wire()
+		}
+		bl.End()
+
+		bl.Div()
+		{
+			bl.Id("child 2")
+			bl.Pos(40, 80)
+			bl.Dim(290, 260)
+
+			border.Fill(0, 10, 80)
+			border.Wire()
+
+			bl.Div()
+			{
+				bl.Id("grand child")
+				bl.Pos(20, 40)
+				bl.Dim(120, 90)
+
+				border.Fill(30, 80, 10)
+				border.Wire()
+			}
+			bl.End()
+		}
+		bl.End()
 	}
 	bl.End()
 }
@@ -38,7 +71,7 @@ func init() {
 }
 
 func main() {
-	bl.Start( hal_g5.New(), 1280, 1024, "Bellina v0.2", initialize, tick, uninitialize )
+	bl.Start( hal_g5.New(), 640, 480, "Bellina Tutorial 01 - Simplest", initialize, tick, uninitialize )
 
 	fmt.Println("bye!")
 }
