@@ -4,7 +4,7 @@
 
 This is the simplest possible Bellina application.
 
-> [On Github: Tutorial 1](https://github.com/amortaza/go-bellina-tutorials/tutorial-01-Simplest)
+> [On Github: Tutorial 1](https://github.com/amortaza/go-bellina-tutorials/tree/master/tutorial-01-Simplest)
 
 For clarity, some of the code will be hidden.  View the full source code at the repository.
 
@@ -82,7 +82,7 @@ Each call to this function is called a `frame`.  Just like, say, a video game fr
 
 > Bellina node tree is destroyed every frame.  The Bellina node tree is re-created in the tick function.  With a call to `bl.Root()`
 
-Here we make the `root` node as big as the application window.
+Here we size the `root` node as the same dimension as the application window.
 
 There is no need to position the root node because it is *always* at (0, 0).
 
@@ -104,4 +104,5 @@ func tick() {
 }
 ```
 
+And we are done!
 
