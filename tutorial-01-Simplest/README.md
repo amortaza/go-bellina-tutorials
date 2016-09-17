@@ -115,18 +115,128 @@ func tick() {
 
 		border.Fill(50, 0, 0)
 		border.Wire()
+		
+		bl.Div()
+		{
+			bl.Id("child")
+			bl.Pos(20, 40)
+			bl.Dim(90, 60)
+
+			border.Fill(0, 50, 0)
+			border.Wire()
+		}
+		bl.End()
+	}
+	bl.End()
+}
 ```
+
+Now that we are experts, lets add more child nodes and even a grandchild.
+
+```
+func tick() {
+
+	bl.Root()
+	{
+		bl.Dim( bl.Window_Width, bl.Window_Height)
+
+		border.Fill(50, 0, 0)
+		border.Wire()
+
+		bl.Div()
+		{
+			bl.Id("child")
+			bl.Pos(20, 40)
+			bl.Dim(90, 60)
+
+			border.Fill(0, 50, 0)
+			border.Wire()
+		}
+		bl.End()
+
+		bl.Div()
+		{
+			bl.Id("child 2")
+			bl.Pos(40, 80)
+			bl.Dim(290, 260)
+
+			border.Fill(0, 10, 80)
+			border.Wire()
+
 			bl.Div()
 			{
-				bl.Id("child")
+				bl.Id("grand child")
 				bl.Pos(20, 40)
-				bl.Dim(90, 60)
+				bl.Dim(120, 90)
 
-				border.Fill(0, 50, 0)
+				border.Fill(30, 80, 10)
 				border.Wire()
 			}
 			bl.End()
+		}
+		bl.End()
+	}
+	bl.End()
+}
 ```
+
+We are noticing that this is becoming a long function.
+Since this is just regular Go, there is no reason why this cannot be broken up into functions to manage code better.
+
+Try putting the child creation pieces in separate functions (the answer is below, but is not in the Github repo).
+
+We will see later that breaking out Bellina code into functions is the basis of plugins.
+
+```
+func tick() {
+
+	bl.Root()
+	{
+		bl.Dim( bl.Window_Width, bl.Window_Height)
+
+		border.Fill(50, 0, 0)
+		border.Wire()
+
+		bl.Div()
+		{
+			bl.Id("child")
+			bl.Pos(20, 40)
+			bl.Dim(90, 60)
+
+			border.Fill(0, 50, 0)
+			border.Wire()
+		}
+		bl.End()
+
+		sibling()
+	}
+	bl.End()
+}
+
+func sibling() {
+    bl.Div()
+	{
+		bl.Id("child 2")
+		bl.Pos(40, 80)
+		bl.Dim(290, 260)
+
+		border.Fill(0, 10, 80)
+		border.Wire()
+
+        grandChild()
+	}
+	bl.End()
+}
+
+func grandChild() {
+	bl.Div()
+	{
+		bl.Id("grand child")
+		bl.Pos(20, 40)
+		bl.Dim(120, 90)
+
+		border.Fill(30, 80, 10)
+		border.Wire()
 	}
 	bl.End()
 }
