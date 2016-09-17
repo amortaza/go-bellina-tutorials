@@ -6,7 +6,7 @@ This is the simplest possible Bellina application.
 
 > [On Github: Tutorial 1](https://github.com/amortaza/go-bellina-tutorials/tree/master/tutorial-01-Simplest)
 
-![Alt text](tutorial-01-Simplest/tutorial-01-a.jpg?raw=true "Result")
+![Alt text](tutorial-01-a.jpg?raw=true "Result")
 
 For clarity, some of the code will be hidden.  View the full source code at the repository.
 
