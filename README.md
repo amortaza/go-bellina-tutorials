@@ -14,7 +14,7 @@ High-level explanations, Tutorials, Setups, and Examples can be found at the fol
 
 &nbsp;
 
-## Installation
+## Installing Bellina
 
 TODO
 
