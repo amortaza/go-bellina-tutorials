@@ -104,5 +104,33 @@ func tick() {
 }
 ```
 
+Lets add a child node.
+
+```
+func tick() {
+
+	bl.Root()
+	{
+		bl.Dim( bl.Window_Width, bl.Window_Height)
+
+		border.Fill(50, 0, 0)
+		border.Wire()
+```
+			bl.Div()
+			{
+				bl.Id("child")
+				bl.Pos(20, 40)
+				bl.Dim(90, 60)
+
+				border.Fill(0, 50, 0)
+				border.Wire()
+			}
+			bl.End()
+```
+	}
+	bl.End()
+}
+```
+
 And we are done!
 
