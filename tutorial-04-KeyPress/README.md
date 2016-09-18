@@ -30,7 +30,9 @@ The difference is that *Short Term* is only valid during this frame.  The next f
 
 Long term is usually used for plugins so we will go with Short term.
 
-The `bl.RegisterShortTerm(eventType string, cb func(Event))` needs an `eventType`.  The event type of a key-even is defined in `bl.EventType_Key`.
+The `bl.RegisterShortTerm(eventType string, cb func(Event))` needs an `eventType`.  
+
+The event type of a key-event is defined in `bl.EventType_Key`.
 
 Putting it all together.
 
