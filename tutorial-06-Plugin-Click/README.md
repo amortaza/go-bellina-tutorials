@@ -18,6 +18,16 @@ First, lets design what the plugin does, and how it is used.
 
 ## Click plugin API design
 
+Here is what the API will look like:
+
+```
+click.On( callback func(interface{}) )
+
+click.On_WithLifeCycle( successCallback, onButtonDown, onButtonUpAndMiss func(interface{})
+```
+
+Here is why...
+
 * `Click` maybe used without instantiating any object
 
 * `Click` will call a callback function when a node is *clicked*
@@ -35,12 +45,5 @@ First, lets design what the plugin does, and how it is used.
 
 * The full life-cycle setup, is more complicated and far less common so we will make that a separate function
 
-Here is what the API will look like:
-
-```
-click.On( callback func(interface{}) )
-
-click.On_WithLifeCycle( successCallback, onButtonDown, onButtonUpAndMiss func(interface{})
-```
 
 And we are done!
