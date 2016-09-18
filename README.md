@@ -6,8 +6,8 @@ Refer to this document for tutorials on all aspects of Bellina programming.
 
 High-level explanations, Tutorials, Setups, and Examples can be found at the following links:
 
- * [Bellina Public API Specification (Github)](go-bellina)
- * [Bellina Tutorials (Github)](go-bellina-tutorials)
+ * [Bellina Public API Specification (Github)](https://github.com/amortaza/go-bellina)
+ * [Bellina Tutorials (Github)](https://github.com/amortaza/go-bellina-tutorials)
  
 &nbsp;
 
