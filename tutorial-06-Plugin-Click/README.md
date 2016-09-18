@@ -51,7 +51,7 @@ Here is why...
 
 We'll put the code in a s
 
-![dir](dir.jpg)
+![dir](dir.jpg?raw=true "Dir")
 
 ## Example Usage
 
