@@ -10,8 +10,6 @@ We will skip over material that has been covered in previous tutorials.
 
 &nbsp;
 
-The `main.go` example in `tutorial-06-Plugin-Click` is using the `click` plugin from `amortaza/go-bellina-plugins/click` which is 99% similar to the click plugin we are going to develop in this tutorial.
-
 We have been introduced to many of the concepts needed to be able to create our first plugin - `Click`.
 
 As a plugin designer, there is no preconditions on how things should be laid out, except to make usage of plugin as useful and easy as possible.
@@ -51,6 +49,8 @@ Here is why...
 
 ## Example Usage
 
+The `main.go` example in `tutorial-06-Plugin-Click` is using the `click` plugin from `amortaza/go-bellina-plugins/click` which is 99% similar to the click plugin we are going to develop in this tutorial.
+
 ```
 bl.Div()
 {
@@ -60,7 +60,7 @@ bl.Div()
     border.Fill(0,50,0)
     
     click.On(func(e interface{}) {
-        clickEvent := e.(*click.Event)
+        clickEvent := e.(click.Event)
         
     	fmt.Println("Clicked on", clickEvent.Target.Id, clickEvent.X, clickEvent.Y)
     })
@@ -255,5 +255,9 @@ func logic(cb, onDown, onUpAndMiss func(interface{})) {
 	})
 }
 ```
+
+### Challenge!
+
+Update the demo application for this tutorial to display a message when a click *miss* happens!
 
 And we are done!
