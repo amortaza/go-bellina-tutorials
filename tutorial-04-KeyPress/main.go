@@ -22,6 +22,18 @@ func uninitialize() {
 
 func tick() {
 
+	bl.RegisterShortTerm(bl.EventType_Key, func(event bl.Event) {
+		keyEvent := event.(*bl.KeyEvent)
+
+		if keyEvent.Action == bl.Button_Action_Down {
+			fmt.Println("Down", keyEvent.Key)
+		}
+
+		if keyEvent.Action == bl.Button_Action_Up {
+			fmt.Println("Down", keyEvent.Key)
+		}
+	})
+
 	bl.Root()
 	{
 		bl.Dim( bl.Window_Width, bl.Window_Height)
@@ -34,10 +46,6 @@ func tick() {
 			bl.Id("child")
 			bl.Pos(20, 40)
 			bl.Dim(130, 160)
-
-			bl.OnMouseMove(func(e *bl.MouseMoveEvent) {
-				fmt.Println("Mouse moved on ", e.Target.Id, "at", e.X, e.Y)
-			})
 
 			border.Fill(0, 50, 0)
 			border.Wire()
