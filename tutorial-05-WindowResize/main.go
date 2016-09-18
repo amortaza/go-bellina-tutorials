@@ -22,16 +22,10 @@ func uninitialize() {
 
 func tick() {
 
-	bl.RegisterShortTerm(bl.EventType_Key, func(event bl.Event) {
-		keyEvent := event.(*bl.KeyEvent)
+	bl.RegisterShortTerm(bl.EventType_Window_Resize, func(event bl.Event) {
+		resizeEvent := event.(*bl.WindowResizeEvent)
 
-		if keyEvent.Action == bl.Button_Action_Down {
-			fmt.Println("Down", keyEvent.Key)
-		}
-
-		if keyEvent.Action == bl.Button_Action_Up {
-			fmt.Println("Down", keyEvent.Key)
-		}
+		fmt.Println("Resized", resizeEvent.Width, resizeEvent.Height)
 	})
 
 	bl.Root()
