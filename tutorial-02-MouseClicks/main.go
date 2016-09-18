@@ -54,7 +54,17 @@ func tick() {
 			border.Wire()
 
 			bl.OnMouseButton(func(e *bl.MouseButtonEvent) {
-				fmt.Println("Clicking on ", e.Target.Id, "at", e.X, e.Y)
+				if e.Button == bl.Mouse_Button_Left {
+					fmt.Println("Mouse button released", e.Target.Id, "at", e.X, e.Y, "type", e.ButtonAction)
+				}
+
+				if e.Button == bl.Button_Action_Up {
+					fmt.Println("Mouse button released", e.Target.Id, "at", e.X, e.Y, "type", e.ButtonAction)
+				}
+
+				if e.ButtonAction == bl.Button_Action_Down {
+					fmt.Println("Mouse button pressed down", e.Target.Id, "at", e.X, e.Y, "type", e.ButtonAction)
+				}
 			})
 
 			bl.Div()
