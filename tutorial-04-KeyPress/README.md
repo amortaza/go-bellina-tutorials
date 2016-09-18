@@ -18,7 +18,7 @@ This is going to be a bit different than previous tutorials since, unlike the mo
 This is too high-level for Bellina.  
 The above activities have to be coordinated by a *Keyboard Focus Plugin* which can be customized for various needs.  
 
-Instead Bellina fires events that can be registered for by one or more nodes.
+Instead Bellina fires events that can be registered for by one or more callbacks.
 
 Lets try that below.
 
