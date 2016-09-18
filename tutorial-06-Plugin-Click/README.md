@@ -10,6 +10,8 @@ We will skip over material that has been covered in previous tutorials.
 
 &nbsp;
 
+The `main.go` example in `tutorial-06-Plugin-Click` is using the `click` plugin from `amortaza/go-bellina-plugins/click` which is 99% similar to the click plugin we are going to develop in this tutorial.
+
 We have been introduced to many of the concepts needed to be able to create our first plugin - `Click`.
 
 As a plugin designer, there is no preconditions on how things should be laid out, except to make usage of plugin as useful and easy as possible.
@@ -46,6 +48,25 @@ Here is why...
 * Because the simple case of a successful click notification is the 90% case, we will make it easier to use
 
 * The full life-cycle setup, is more complicated and far less common so we will make that a separate function
+
+## Example Usage
+
+```
+bl.Div()
+{
+	bl.Id("one")
+    bl.Pos(100,100)
+    bl.Dim(200,200)
+    border.Fill(0,50,0)
+    
+    click.On(func(e interface{}) {
+        clickEvent := e.(*click.Event)
+        
+    	fmt.Println("Clicked on", clickEvent.Target.Id, clickEvent.X, clickEvent.Y)
+    })
+}
+bl.End()
+```
 
 ## Implementation of Click Plugin
 
@@ -99,7 +120,140 @@ func On_WithLifeCycle(cb, onDown, onUpAndMiss func(interface{})) {
 
 ### logic.go
 
+When mouse is clicked on the node, we need to know about it.
 
-## Example Usage
+We can use the short-term registration.  We can explore how using the long-term registration would have changed our code.  
+
+But why not use the `bl.OnMouseButton(...)` on the node?
+
+The `RegisterShortTerm` function is a global listener for mouse-button events.  So even if an unrelated node is mouse-button'd on, the registered callback is called.
+
+This is important because if a node other than our original node gets a mouse button event, the original node needs to know about it so it can cancel the `click`.
+
+
+```
+func logic(cb, onDown, onUpAndMiss func(interface{})) {
+	bl.RegisterShortTerm(bl.EventType_Mouse_Button, func(event bl.Event) {
+    	e := event.(*bl.MouseButtonEvent)
+	})
+}
+```
+
+If the action is *Button Down* then we are half-way through our click!
+
+Lets start keeping track of the node that we *Button Down* on.
+
+```
+var gLastNodeId string // i.e. last node that we saw
+```
+
+```
+func logic(cb, onDown, onUpAndMiss func(interface{})) {
+	bl.RegisterShortTerm(bl.EventType_Mouse_Button, func(event bl.Event) {
+    	e := event.(*bl.MouseButtonEvent)
+        
+        if e.ButtonAction == bl.Button_Action_Down {
+
+			gLastNodeId = e.Target.Id
+		}
+	})
+}
+```
+
+If the action is *Button Up*, then we have our click (well almost, but bear with me)!
+
+```
+func logic(cb, onDown, onUpAndMiss func(interface{})) {
+	bl.RegisterShortTerm(bl.EventType_Mouse_Button, func(event bl.Event) {
+    	e := event.(*bl.MouseButtonEvent)
+        
+        if e.ButtonAction == bl.Button_Action_Down {
+
+			gLastNodeId = e.Target.Id
+            
+		} else if e.ButtonAction == bl.Button_Action_Up {
+
+			// we have a click!
+			successCb(Event{bl.Mouse_X, bl.Mouse_X, e.Target})
+		}
+	})
+}
+```
+
+What if the node that got *Button Up* is not the same as the node that go the *Button Down* ?  
+
+Well we have to remember the node we were on when these callbacks were registered (ie the node that is looking for the 'Click').
+
+We have a click only if the node that got the button-up event is the same node that originally got the button-down event.
+
+```
+func logic(cb, onDown, onUpAndMiss func(interface{})) {
+
+	nodeId := bl.Current_Node.Id
+    
+	bl.RegisterShortTerm(bl.EventType_Mouse_Button, func(event bl.Event) {
+    	e := event.(*bl.MouseButtonEvent)
+        
+        if e.ButtonAction == bl.Button_Action_Down {
+
+			gLastNodeId = e.Target.Id
+            
+		} else if e.ButtonAction == bl.Button_Action_Up {
+
+			if gLastNodeId == e.Target.Id {
+				// we have a click!
+				successCb(Event{bl.Mouse_X, bl.Mouse_X, e.Target})
+            }
+		}
+	})
+}
+```
+
+Since we are now globally listening to all mouse-button events, lets ignore the ones that are not related to our node. `nodeId` is our node, `e.Target.Id` is the node that got the button-down event.
+
+```
+if e.ButtonAction == bl.Button_Action_Down {
+
+	if e.Target.Id != nodeId {
+		return
+	}
+
+```
+
+
+Finally, if in the button-up event, we are not on the node that got the initial button-down, then call the `upAndMissCb' and reset the state by setting `gLastNodeId` to nil.
+
+```
+func logic(cb, onDown, onUpAndMiss func(interface{})) {
+
+	nodeId := bl.Current_Node.Id
+    
+	bl.RegisterShortTerm(bl.EventType_Mouse_Button, func(event bl.Event) {
+    	e := event.(*bl.MouseButtonEvent)
+        
+        if e.ButtonAction == bl.Button_Action_Down {
+
+            if e.Target.Id != nodeId {
+                return
+            }
+            
+			gLastNodeId = e.Target.Id
+            
+		} else if e.ButtonAction == bl.Button_Action_Up {
+
+			if gLastNodeId == e.Target.Id {
+            
+				// we have a click!
+				successCb(Event{e.X, e.Y, e.Target})
+                
+            } else {
+   				gLastNodeId = ""
+
+				onUpAndMiss(nil)
+            }
+		}
+	})
+}
+```
 
 And we are done!
