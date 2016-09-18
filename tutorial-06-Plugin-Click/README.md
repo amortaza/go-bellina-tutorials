@@ -23,7 +23,9 @@ Here is what the API will look like:
 ```
 click.On( callback func(interface{}) )
 
-click.On_WithLifeCycle( successCallback, onButtonDown, onButtonUpAndMiss func(interface{})
+click.On_WithLifeCycle( successCallback, 
+						onButtonDown, 
+                        onButtonUpAndMiss func(interface{})
 ```
 
 Here is why...
@@ -45,5 +47,12 @@ Here is why...
 
 * The full life-cycle setup, is more complicated and far less common so we will make that a separate function
 
+## Implementation of Click Plugin
+
+We'll put the code in a s
+
+![dir](dir.jpg)
+
+## Example Usage
 
 And we are done!
