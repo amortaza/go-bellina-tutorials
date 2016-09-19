@@ -7,6 +7,7 @@ import (
 	"github.com/amortaza/go-hal-g5"
 	"github.com/amortaza/go-dark-ux/border"
 	"github.com/amortaza/go-dark-ux"
+	"github.com/amortaza/go-bellina-plugins/click"
 )
 
 func initialize() {
@@ -22,12 +23,6 @@ func uninitialize() {
 
 func tick() {
 
-	bl.RegisterShortTerm(bl.EventType_Window_Resize, func(event bl.Event) {
-		resizeEvent := event.(*bl.WindowResizeEvent)
-
-		fmt.Println("Resized", resizeEvent.Width, resizeEvent.Height)
-	})
-
 	bl.Root()
 	{
 		bl.Dim( bl.Window_Width, bl.Window_Height)
@@ -37,12 +32,16 @@ func tick() {
 
 		bl.Div()
 		{
-			bl.Id("child")
-			bl.Pos(20, 40)
-			bl.Dim(130, 160)
+			bl.Id("one")
+		    	bl.Pos(100,100)
+		    	bl.Dim(200,200)
+		    	border.Fill(0,50,0)
 
-			border.Fill(0, 50, 0)
-			border.Wire()
+		    	click.On(func(e interface{}) {
+		        	clickEvent := e.(click.Event)
+
+		    		fmt.Println("Clicked on", clickEvent.Target.Id, clickEvent.X, clickEvent.Y)
+		    	})
 		}
 		bl.End()
 	}
