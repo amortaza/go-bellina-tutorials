@@ -13,4 +13,20 @@ High-level explanations, Tutorials, Setups, and Examples can be found at the fol
 
 ## Installing Bellina
 
-TODO
+> Bellina has only been tested in Windows
+
+* Install GoLang
+	* Make sure the GOROOT property is set
+    * Make sure the GOPATH property is set
+    
+* Install [MSYS2 **must** be 64-bit version](https://msys2.github.io/)
+
+* There are more steps needed...as of Sept. 18, 2016
+
+### Recommended
+
+* [IntelliJ (Community Edition will do)](https://www.jetbrains.com/idea/)
+
+* Go plugin for IntelliJ
+
+
