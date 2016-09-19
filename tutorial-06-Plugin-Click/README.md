@@ -1,5 +1,12 @@
 # Tutorial 6
 
+**NOTE**
+This is an *advanced* topic on how the `click` plugin was written.
+
+For starting out in using Bellina you should be using existing Plugins in [go-bellina-plugins](https://github.com/amortaza/go-bellina-plugins)
+
+Each plugin is fully documented with sample code.
+
 ## Click Plugin
 
 > [On Github: Tutorial 6](tutorial-06-Plugin-Click)
