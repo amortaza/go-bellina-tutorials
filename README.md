@@ -40,4 +40,4 @@ Each package describes usages with example code.
 
 ## Suggest others
 
-Use the `issues` capability in Github to suggest new plugins.
+Use the `issues` capability in Github to suggest new plugins..
