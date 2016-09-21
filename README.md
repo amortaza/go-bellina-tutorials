@@ -1,43 +1,32 @@
-# Bellina Common Plugins
+# Bellina Programming Tutorials
 
-Plugins for common behaviors are provided for convenience.
+Bellina is a low-level framework for building flexible graphical user interfaces in GoLang.
 
-Each package describes usages with example code.
+Refer to this document for tutorials on all aspects of Bellina programming.
 
-## Common Behaviors made to Plugins
+High-level explanations, Tutorials, Setups, and Examples can be found at the following links:
 
-* `anim` allows for animation of a node's property like moving it horizontally or some other direction
+ * [Bellina Public API Specification (Github)](https://github.com/amortaza/go-bellina)
+ * [Bellina Tutorials (Github)](https://github.com/amortaza/go-bellina-tutorials)
+ 
+&nbsp;
 
-* `click` to detect user mouse-clicks on a node
+## Installing Bellina
 
-* `double-click` to detect user mouse double-clicks on a node
+> Bellina has only been tested in Windows
 
-* `drag-other` when applied to a node, when that node is dragged, the plugin will move *another* node.  This is useful for *title bars* where dragging the title bar actually drags its parent window
+* Install GoLang
+	* Make sure the GOROOT property is set
+    * Make sure the GOPATH property is set
+    
+* Install [MSYS2 **must** be 64-bit version](https://msys2.github.io/)
 
-* `drag` when applied to a node, makes that node draggable with a mouse
+* There are more steps needed...as of Sept. 18, 2016
 
-* `focus` allows a node to grab keyboard focus and detect key presses
+### Recommended
 
-* `hover` detects when a mouse cursor *hovers* or moves over a node.  This plugin can be used to create *hover-over* effects
+* [IntelliJ (Community Edition will do)](https://www.jetbrains.com/idea/)
 
-* `mouse-drag` detects a mouse-drag gesture over a node.  When a mouse button-press over a node is followed by a mouse move - this is a mouse-drag.  This is different from the `drag` plugin, because this plugin simply events on the gesture, whereas `drag` actually moves the node across the screen.
+* Go plugin for IntelliJ
 
-* ~~`resize-other`~~ is a tech demo - and has not been used in a real application.  This plugin when applied to a node, detects when a node is being resized, but redirects that to *another* node.  Analogous to a `drag-other`.
 
-* ~~`resize`~~ is a tech demo - and has not been used in a real application.  This plugin when applied to a node, allows the node to be resizable.
-
-* `side-resize` when applied to a node and configured for one of the `left`, `top`, `left-top`, `right`, `bottom`, or `right-bottom` will resize its parent when the node is dragged around.  Can be used to implement resizing of a node when grabbed by its side.
-
-* `zindex` when this plugin is applied to a node, it makes all of the node's child nodes clickable.  When a child-node is clicked, it changes its z-index to move to the topmost child.
-
-## Layout Behaviors
-
-* `vert` when applied to a node will arrange its kid nodes vertically with configurable spacing
-
-* `horiz` like `vert` except horizontal
-
-* `docker` allows docking of a node to its parent's borders (e.g. Top-Left docking)
-
-## Suggest others
-
-Use the `issues` capability in Github to suggest new plugins..
